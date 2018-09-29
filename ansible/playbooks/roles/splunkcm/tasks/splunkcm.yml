@@ -1,0 +1,23 @@
+---
+
+
+ - name: Configure Splunk CM
+   tags: 
+      - install
+   shell: /opt/splunk/bin/splunk edit cluster-config -mode master -replication_factor 2 -search_factor 2 -secret splunk -auth admin:splunkteja
+   become: yes
+   become_user: splunk
+
+ - name: sleep or 50 secs
+   tags:
+      - install
+   shell: sleep 50
+   become: yes
+   become_user: root
+
+ - name: restart splunk
+   tags:
+     - install
+   shell: /opt/splunk/bin/splunk restart
+   become: yes
+   become_user: splunk  

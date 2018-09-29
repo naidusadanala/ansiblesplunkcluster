@@ -1,0 +1,34 @@
+---
+# This playbook uninstall the apps required in a server
+
+- name: checking if splunk is install
+  tags: install
+  stat: path=/opt/splunk
+  register: splunk_path
+
+- name: is splunk installed?
+  tags: install
+  debug: msg='splunk is already installed under /opt/splunk'
+  when: splunk_path.stat.exists
+
+
+- name: stop splunk
+  tags:
+   - install
+  shell: /opt/splunk/bin/splunk stop
+  become: yes
+  become_user: splunk
+  when: splunk_path.stat.exists == true
+
+- name: remove splunk directory
+  tags:
+   - install
+  file:
+     path: /opt/splunk
+     state: absent
+
+- name: Remove the user "splunk'
+  user:
+    name: splunk
+    state: absent
+    remove: yes

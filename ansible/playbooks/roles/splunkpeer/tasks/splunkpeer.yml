@@ -1,0 +1,32 @@
+---
+
+
+ - name: Open port 9997 for indexers to receive data
+   tags: 
+      - install
+   shell: /opt/splunk/bin/splunk enable listen 9997 -auth admin:splunkteja
+   become: yes
+   become_user: splunk
+
+ - name: sleep or 60 secs
+   tags:
+      - install
+   shell: sleep 60
+   become: yes
+   become_user: root
+
+ - name: server conf for peers
+   tags:
+     - install
+   shell: /opt/splunk/bin/splunk edit cluster-config -mode slave -master_uri https://35.237.224.107:8089 -secret splunk -replication_port 9100
+   become: yes
+   become_user: splunk
+
+
+
+ - name: restart  peers
+   tags:
+     - install
+   shell: /opt/splunk/bin/splunk restart
+   become: yes
+   become_user: splunk

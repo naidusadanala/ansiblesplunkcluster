@@ -1,0 +1,17 @@
+---
+### global settings for your infrastructure ###
+# splunk binary to install. Located under playbooks/splunk_binary/
+splunk_binary: 'splunk-7.1.1-8f0ead9ec3db-Linux-x86_64.tgz'
+
+# splunk binary to install. Located under playbooks/splunk_binary/
+splunk_upgrade: 'splunk-7.1.2-a0c72a66db66-Linux-x86_64.tgz'
+
+
+# splunk uf binary to install. Located under playbooks/splunk_binary/
+splunk_uf_binary: 'splunkforwarder-6.2.0-237341-Linux-x86_64.tgz'
+
+# splunk uf binary to install. Located under playbooks/splunk_binary/
+wget_url: 'https://www.splunk.com/page/download_track?file=7.1.1/linux/splunk-7.1.1-8f0ead9ec3db-Linux-x86_64.tgz&ac=&wget=true&name=wget&platform=Linux&architecture=x86_64&version=7.1.1&product=splunk&typed=release'
+
+# splunk uf binary to install. Located under playbooks/splunk_binary/
+wget_upgrade: 'https://www.splunk.com/bin/splunk/DownloadActivityServlet?architecture=x86_64&platform=linux&version=7.1.2&product=splunk&filename=splunk-7.1.2-a0c72a66db66-Linux-x86_64.tgz&wget=true'

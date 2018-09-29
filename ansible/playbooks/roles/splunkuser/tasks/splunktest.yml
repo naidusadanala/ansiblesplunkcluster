@@ -1,0 +1,13 @@
+
+
+---
+
+- hosts: all
+  tasks: 
+   
+    - name: "shut down Debian flavored systems"
+      command: /sbin/shutdown -t now
+      when: ansible_os_family == "Debian"
+    # note that Ansible facts and vars like ansible_os_family can be used
+    # directly in conditionals without double curly braces
+ 

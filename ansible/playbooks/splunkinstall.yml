@@ -1,0 +1,29 @@
+---
+# This playbook deploys all sub playbooks
+
+- name: apply common configuration to all nodes
+  hosts: all
+  user: root
+
+  roles:
+     - splunkinstall
+#
+#
+
+
+- name: configure cluster master
+  hosts: cm
+  user: root
+
+  roles:
+    - splunkcm
+
+
+
+
+- name: configure search peers
+  hosts: indexers
+  user: root
+
+  roles:
+    - splunkpeer

@@ -1,0 +1,51 @@
+---
+# This playbook install the apps required in a server
+
+- name: checking if splunk is install
+  tags: install
+  stat: path=/opt/splunk
+  register: splunk_path
+
+- name: is splunk installed?
+  tags: install
+  debug: msg='splunk is already installed under /opt/splunk'
+  when: splunk_path.stat.exists
+
+
+- name: stop splunk
+  tags:
+   - install
+  shell: /opt/splunk/bin/splunk stop
+  become: yes
+  become_user: splunk
+  when: splunk_path.stat.exists == true
+
+
+- name: remove current splunk directory
+  tags:
+   - install
+  file:
+     path: /opt/splunk
+     state: absent
+
+- name: rollback previous splunk
+  tags:
+   - install
+  shell: cp -Rvf /tmp/splunk /opt/
+
+- name: make /opt writetable by splunk
+  tags:
+   - install
+  file:
+     path: /opt/splunk
+     owner: splunk
+     group: splunk
+     mode: 0777
+     recurse: yes
+
+- name: accept license and start splunk
+  tags:
+   - install
+  shell: /opt/splunk/bin/splunk start --accept-license --answer-yes --no-prompt --seed-passwd splunkteja
+  become: yes
+  become_user: splunk
